@@ -14,7 +14,8 @@ export default function StravaWebhookManager() {
     verify_token: ""
   });
 
-  const fetchSubs = async (cid, csec) => {
+  const fetchSubs = async () => {
+    const { client_id: cid, client_secret: csec } = global;
     if (!cid || !csec) {
       setSubs([]);
       return;
@@ -33,10 +34,11 @@ export default function StravaWebhookManager() {
 
   useEffect(() => {
     if (global.client_id && global.client_secret) {
-      fetchSubs(global.client_id, global.client_secret);
+      fetchSubs();
     } else {
       setSubs([]);
     }
+    setLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [global.client_id, global.client_secret]);
 
@@ -66,8 +68,8 @@ export default function StravaWebhookManager() {
       fetchSubs();
     } catch (e) {
       setError("Failed to Add Subscription");
-      setLoading(false);
     }
+    setLoading(false);
   };
 
   return (
