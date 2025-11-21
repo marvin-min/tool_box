@@ -5,7 +5,6 @@ export default function StravaWebhookManager() {
   const [subs, setSubs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  // 全局 client_id/secret
   const [global, setGlobal] = useState({
     client_id: "",
     client_secret: ""
@@ -15,7 +14,6 @@ export default function StravaWebhookManager() {
     verify_token: ""
   });
 
-  // 获取所有订阅
   const fetchSubs = async (cid, csec) => {
     if (!cid || !csec) {
       setSubs([]);
@@ -28,7 +26,7 @@ export default function StravaWebhookManager() {
       const data = await res.json();
       setSubs(Array.isArray(data.data) ? data.data : []);
     } catch (e) {
-      setError("获取订阅失败");
+      setError("Failed to Pull Subscriptions");
     }
     setLoading(false);
   };
@@ -42,7 +40,6 @@ export default function StravaWebhookManager() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [global.client_id, global.client_secret]);
 
-  // 删除订阅
   const handleDelete = async (id) => {
     setLoading(true);
     setError("");
@@ -50,12 +47,11 @@ export default function StravaWebhookManager() {
       await fetch(`/api/strava/webhook/delete?id=${id}&client_id=${global.client_id}&client_secret=${global.client_secret}`, { method: "DELETE" });
       fetchSubs();
     } catch (e) {
-      setError("删除失败");
+      setError("Failed to Delete Subscription");
       setLoading(false);
     }
   };
 
-  // 新增订阅
   const handleAdd = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -69,7 +65,7 @@ export default function StravaWebhookManager() {
       setForm({ callback_url: "", verify_token: "" });
       fetchSubs();
     } catch (e) {
-      setError("新增失败");
+      setError("Failed to Add Subscription");
       setLoading(false);
     }
   };
@@ -83,17 +79,17 @@ export default function StravaWebhookManager() {
         color: '#0070f3',
         marginBottom: 8,
         textShadow: '0 2px 8px #e3e3e3'
-      }}>Strava Webhook 订阅管理</h2>
+      }}>Strava Webhook Management</h2>
       <div style={{ display: 'flex', gap: 16, marginBottom: 32, alignItems: 'center', background: '#f5f7fa', padding: 20, borderRadius: 8, boxShadow: '0 1px 4px #eaeaea' }}>
         <input
           style={{ flex: 1, padding: '10px 14px', border: '2px solid #ffb300', borderRadius: 6, background: '#fffbe6', fontWeight: 600 }}
-          placeholder="全局 STRAVA_CLIENT_ID"
+          placeholder="STRAVA_CLIENT_ID"
           value={global.client_id}
           onChange={e => setGlobal(g => ({ ...g, client_id: e.target.value }))}
         />
         <input
           style={{ flex: 2, padding: '10px 14px', border: '2px solid #00bfae', borderRadius: 6, background: '#e6fffb', fontWeight: 600 }}
-          placeholder="全局 STRAVA_CLIENT_SECRET"
+          placeholder="STRAVA_CLIENT_SECRET"
           value={global.client_secret}
           onChange={e => setGlobal(g => ({ ...g, client_secret: e.target.value }))}
         />
@@ -119,7 +115,7 @@ export default function StravaWebhookManager() {
           disabled={loading}
           style={{ flex: 'none', padding: '8px 20px', background: '#0070f3', color: '#fff', border: 'none', borderRadius: 4, fontWeight: 600, cursor: 'pointer', transition: 'background 0.2s' }}
         >
-          新增订阅
+          Subscribe New Webhook
         </button>
       </form>
       <table
@@ -136,7 +132,7 @@ export default function StravaWebhookManager() {
             <th style={{ border: '1px solid #e3e3e3', padding: 10, fontWeight: 700 }}>ID</th>
             <th style={{ border: '1px solid #e3e3e3', padding: 10, fontWeight: 700 }}>callback_url</th>
             <th style={{ border: '1px solid #e3e3e3', padding: 10, fontWeight: 700 }}>created_at</th>
-            <th style={{ border: '1px solid #e3e3e3', padding: 10, fontWeight: 700 }}>操作</th>
+            <th style={{ border: '1px solid #e3e3e3', padding: 10, fontWeight: 700 }}>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -164,14 +160,14 @@ export default function StravaWebhookManager() {
                     fontWeight: 600
                   }}
                 >
-                  删除
+                  Delete Subscription
                 </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      {loading && <div>加载中...</div>}
+      {loading && <div>Loading...</div>}
     </div>
   );
 }

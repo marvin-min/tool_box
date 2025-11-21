@@ -4,7 +4,7 @@ export async function POST(request) {
   const body = await request.json();
   const { callback_url, verify_token, extra_verify_token } = body;
   if (!callback_url || !verify_token) {
-    return NextResponse.json({ error: '参数不全' }, { status: 400 });
+    return NextResponse.json({ error: 'Parameters missing' }, { status: 400 });
   }
   const client_id = searchParams.get('client_id');
   const client_secret = searchParams.get('client_secret');

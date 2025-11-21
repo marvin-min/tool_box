@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 
 export async function GET(request) {
-  // 支持 query parameter
   const { searchParams } = new URL(request.url);
   const client_id = searchParams.get('client_id');
   const client_secret = searchParams.get('client_secret');

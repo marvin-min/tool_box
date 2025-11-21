@@ -5,7 +5,7 @@ export async function DELETE(request) {
   const id = searchParams.get('id');
   const client_id = searchParams.get('client_id');
   const client_secret = searchParams.get('client_secret');
-  if (!id || !client_id || !client_secret) return NextResponse.json({ error: '缺少参数' }, { status: 400 });
+  if (!id || !client_id || !client_secret) return NextResponse.json({ error: 'Parameters missing' }, { status: 400 });
   const url = new URL(`https://www.strava.com/api/v3/push_subscriptions/${id}`);
   url.searchParams.set('client_id', client_id);
   url.searchParams.set('client_secret', client_secret);
@@ -14,5 +14,5 @@ export async function DELETE(request) {
   });
   if (res.status === 204) return NextResponse.json({ ok: true });
   const data = await res.json().catch(() => ({}));
-  return NextResponse.json({ error: data || '删除失败' }, { status: res.status });
+  return NextResponse.json({ error: data || 'Failed to delete subscription' }, { status: res.status });
 }
