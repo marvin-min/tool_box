@@ -16,6 +16,7 @@ export async function GET(request) {
 
 export async function POST(request) {
   const body = await request.json();
-  console.log('Strava Event Data:', JSON.stringify(body, null, 2));
+  console.log('==============Received Strava Webhook Event:==============');
+  console.log(JSON.stringify(body, null, 2));
   return new Response('OK', { status: 200 });
 }
