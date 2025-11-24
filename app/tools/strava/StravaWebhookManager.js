@@ -6,12 +6,12 @@ export default function StravaWebhookManager() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [global, setGlobal] = useState({
-    client_id: "",
-    client_secret: ""
+    client_id:  '',
+    client_secret: ''
   });
   const [form, setForm] = useState({
-    callback_url: "",
-    verify_token: ""
+    callback_url: '',
+    verify_token: ''
   });
 
   const fetchSubs = async () => {
