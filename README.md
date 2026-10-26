@@ -149,6 +149,11 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Deploy on Vercel
 
+Use Node.js 22 for deployments. Next.js and `eslint-config-next` are pinned to
+16.4.3, with React and React DOM pinned to 19.2.9 for security fixes.
+After upgrading, commit the manifest and both lockfiles, then redeploy.
+Clearing the build cache alone does not fix a vulnerable dependency version.
+
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
