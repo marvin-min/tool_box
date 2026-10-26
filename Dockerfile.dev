@@ -1,0 +1,27 @@
+FROM node:22-bookworm
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        build-essential \
+        ca-certificates \
+        curl \
+        git \
+        gnupg \
+        less \
+        openssh-client \
+        python3 \
+    && rm -rf /var/lib/apt/lists/* \
+    && git config --system safe.directory /workspace \
+    && git config --system credential.helper 'cache --timeout=3600' \
+    && mkdir -p /workspace/node_modules /workspace/.next \
+    && chown -R node:node /workspace
+
+COPY --chmod=755 docker/dev-entrypoint.sh /usr/local/bin/toolbox-dev-entrypoint
+
+USER node
+WORKDIR /workspace
+
+EXPOSE 4006
+
+ENTRYPOINT ["toolbox-dev-entrypoint"]
+CMD ["bash", "-c", "yarn install --frozen-lockfile && exec yarn next dev --hostname 0.0.0.0 --port 4006"]

@@ -1,0 +1,24 @@
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    init: true
+    ports:
+      - "127.0.0.1:${DEV_PORT:-4006}:4006"
+    environment:
+      GIT_USER_NAME: ${GIT_USER_NAME:-}
+      GIT_USER_EMAIL: ${GIT_USER_EMAIL:-}
+      NEXT_TELEMETRY_DISABLED: "1"
+    volumes:
+      - .:/workspace
+      - node_modules:/workspace/node_modules
+      - next_cache:/workspace/.next
+      - dev_home:/home/node
+    stdin_open: true
+    tty: true
+
+volumes:
+  node_modules:
+  next_cache:
+  dev_home:

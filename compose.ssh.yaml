@@ -1,0 +1,10 @@
+services:
+  dev:
+    environment:
+      SSH_AUTH_SOCK: /run/ssh-agent
+    volumes:
+      - type: bind
+        source: ${SSH_AGENT_SOCKET:-/run/host-services/ssh-auth.sock}
+        target: /run/ssh-agent
+        bind:
+          create_host_path: false
