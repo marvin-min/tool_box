@@ -4,11 +4,11 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev": "next dev -p 4000 & yarn open-browser",
+    "dev": "next dev -p 4006 & yarn open-browser",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "open-browser": "open http://localhost:4000"
+    "open-browser": "open http://localhost:4006"
   },
   "dependencies": {
     "next": "16.0.3",
@@ -17,9 +17,10 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "baseline-browser-mapping": "^2.9.19",
     "eslint": "^9",
     "eslint-config-next": "16.0.3",
-    "tailwindcss": "^4",
-    "open": "^8.4.0"
+    "open": "^8.4.0",
+    "tailwindcss": "^4"
   }
 }

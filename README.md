@@ -20,6 +20,23 @@ You can start editing the page by modifying `app/page.js`. The page auto-updates
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Polar Webhook
+
+Configure Polar to send webhook events to `https://<your-domain>/tools/polar/webhook`.
+The endpoint accepts POST requests, prints the JSON payload to the server console,
+and returns `200 OK`. Invalid JSON is logged and returns `400 Bad Request`.
+
+To test locally with the development server running:
+
+```bash
+curl -i http://localhost:4006/tools/polar/webhook \
+  -H 'Content-Type: application/json' \
+  -d '{"type":"test","data":{"message":"Hello from Polar"}}'
+```
+
+This endpoint is for debugging only and does not verify webhook signatures.
+Do not use it for trusted event processing without adding signature verification.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
